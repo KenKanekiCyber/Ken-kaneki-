@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ken Kaneki</title>
+  <meta name="description" content="A simple landing page with background video and social links." />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:#fff;background:#000}
+
+    /* Video full-bleed */
+    .bg-video-wrap{position:fixed;inset:0;overflow:hidden;z-index:-1}
+    video#bgvid{min-width:100%;min-height:100%;width:auto;height:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);object-fit:cover;filter:brightness(0.55)}
+
+    /* page content */
+    .container{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;text-align:center}
+    .brand{display:flex;flex-direction:column;gap:.6rem;align-items:center}
+
+    .logo{
+      width:140px;height:140px;border-radius:50%;
+      overflow:hidden; /* crop inside circle */
+      box-shadow:0 10px 30px rgba(0,0,0,.45);
+    }
+    .logo img{
+      width:100%;height:100%;object-fit:cover;
+    }
+
+    h1{font-size:2rem;letter-spacing:1px}
+    p.lead{opacity:.9;margin-top:.25rem}
+
+    /* social links */
+    .socials{display:flex;gap:1rem;margin-top:1.25rem;flex-wrap:wrap;justify-content:center}
+    .socials a{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:60px;
+      height:60px;
+      border-radius:12px;
+      background:rgba(255,255,255,.06);
+      backdrop-filter:blur(4px);
+      text-decoration:none;
+      transition:transform .15s ease,background .15s ease,box-shadow .15s ease;
+    }
+    .socials a:hover{
+      transform:translateY(-4px);
+      background:rgba(255,255,255,.09);
+      box-shadow:0 0 20px #ff0000,0 0 40px #ff0000;
+    }
+    .socials img{
+      width:30px;
+      height:30px;
+    }
+
+    /* control bar */
+    .controls{position:fixed;left:1rem;bottom:1rem;display:flex;gap:.6rem;align-items:center}
+    .btn{background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.08);padding:.5rem .8rem;border-radius:10px;color:#fff;font-weight:600;cursor:pointer}
+    .btn:active{transform:scale(.98)}
+
+    /* small screens */
+    @media (max-width:600px){
+      .logo{width:110px;height:110px}
+      h1{font-size:1.4rem}
+      .socials{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Background video -->
+  <div class="bg-video-wrap">
+    <video id="bgvid" autoplay loop playsinline poster="poster.jpg">
+      <source src="kaneki.mp4" type="video/mp4">
+      Your browser does not support HTML5 video.
+    </video>
+  </div>
+
+  <main class="container">
+    <div class="brand">
+      <!-- Logo image -->
+      <div class="logo">
+        <img src="logo.jpg" alt="Ken Kaneki Logo">
+      </div>
+      <h1>KEN KANEKI</h1>
+      <p class="lead">I already know I’m not normal. But what’s wrong with that?</p>
+
+      <!-- Social links with SVG logos -->
+      <div class="socials">
+        <a href="https://youtube.com/@misteditzam" target="_blank">
+          <img src="icons/youtube.svg" alt="YouTube">
+        </a>
+        <a href="https://discord.gg/FtyKNWcZ" target="_blank">
+          <img src="icons/discord.svg" alt="Discord">
+        </a>
+        <a href="https://www.facebook.com/share/1AuoY1CN15/" target="_blank">
+          <img src="icons/facebook.svg" alt="Facebook">
+        </a>
+        <a href="t.me/Shanto_9901" target="_blank">
+          <img src="icons/telegram.svg" alt="Telegram">
+        </a>
+        <a href="https://www.instagram.com/shanto_9901" target="_blank">
+          <img src="icons/instagram.svg" alt="Instagram">
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Background audio -->
+  <audio id="bg-audio" src="kaneki.mp3" loop preload="none"></audio>
+
+  <!-- Controls -->
+  <div class="controls">
+    <button id="vid-mute" class="btn">Video muted</button>
+    <button id="music-toggle" class="btn">Play music</button>
+  </div>
+
+  <script>
+    const bgVid = document.getElementById('bgvid');
+    const audio = document.getElementById('bg-audio');
+    const vidMuteBtn = document.getElementById('vid-mute');
+    const musicToggle = document.getElementById('music-toggle');
+
+    bgVid.muted = true;
+
+    // Toggle video sound
+    vidMuteBtn.addEventListener('click', ()=>{
+      bgVid.muted = !bgVid.muted;
+      vidMuteBtn.textContent = bgVid.muted ? 'Video muted' : 'Video sound on';
+    });
+
+    // Play/pause music button
+    musicToggle.addEventListener('click', async ()=>{
+      try {
+        if (audio.paused) {
+          await audio.play();
+          musicToggle.textContent = 'Pause music';
+        } else {
+          audio.pause();
+          musicToggle.textContent = 'Play music';
+        }
+      } catch (e) {
+        console.warn('Audio play failed:', e);
+      }
+    });
+
+    // Autoplay on first click anywhere
+    document.addEventListener('click', async ()=>{
+      if (audio.paused) {
+        try {
+          await audio.play();
+          musicToggle.textContent = 'Pause music';
+        } catch(e){
+          console.warn('Autoplay failed:', e);
+        }
+      }
+    }, { once:true });
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  color: white;
+  overflow-x: hidden;
+}
+
+/* 🎬 VIDEO BACKGROUND */
+#bgVideo {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -3;
+}
+
+/* DARK OVERLAY */
+body::after {
+  content: "";
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.6);
+  z-index: -2;
+}
+
+/* ⚡ PARTICLES */
+#particles {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* 💎 CURSOR */
+.cursor {
+  width: 15px;
+  height: 15px;
+  border: 2px solid #ff0000;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000;
+  transform: translate(-50%, -50%);
+}
+
+/* 🎵 MUSIC BUTTON */
+#musicToggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: rgba(0,0,0,0.5);
+  border: none;
+  color: white;
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* 🖼 CONTAINER */
+.container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/* PROFILE */
+.profile-card {
+  margin-bottom: 30px;
+}
+
+.profile {
+  width: 120px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+/* MAIN LINKS */
+.links {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+}
+
+.links a {
+  width: 70px;
+  height: 70px;
+  background: rgba(255,255,255,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.links a:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000;
+}
+
+.links img {
+  width: 35px;
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  .cursor {
+    display: none; /* disable cursor on mobile */
+  }
+  .links a {
+    width: 60px;
+    height: 60px;
+  }
+  .links img {
+    width: 30px;
+  }
+}
